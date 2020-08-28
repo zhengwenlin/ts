@@ -15,72 +15,48 @@ function createArray<T>(length: number, value: T): Array<T> {
     return result;
 }
 
-let a = createArray<string>(6, 'a')
+let a: string[] = createArray<string>(6, 'a')
 console.log(a);
 
 // 类数组 arguments
-function add(a: any, b: any, c: any) {
+function sum(a: any, b: any, c: any): void {
     let args: IArguments = arguments;
     for (let key in args) {
-        console.log(args[key]);
+        console.log(args[key] + '===');
 
     }
 }
-add(1, 2, 3)
-
-
+sum(1, 2, 3)
 // 泛型类
 // 泛型类使用 <> 括起泛型类型，跟在类名后面。
 
-// class GenericNumber<U>{
-//     public initial: U;
-//     constructor(initial: U) {
-//         this.initial = initial;
-//     }
-//     add(x: U, y: U): U {
-//         return (x + y) as U;
-//     }
-// }
-// <T> 是定义泛型，后边T是使用泛型
-class GenericNumber1<T>{
-    state: T;
-    constructor(state: T) {
-        this.state = state;
+class MyArray<T>{
+    private list: T[] = []
+    add(value: T): void {
+        this.list.push(value)
+    }
+    getMax(): T {
+        return this.list[0]
     }
 
-    getState(): T {
-        return this.state
-    }
 }
-let g1 = new GenericNumber1<number>(100)
-console.log(g1.getState());
+
+let m1: MyArray<number> = new MyArray<number>()
+m1.add(3)
+m1.add(2)
+m1.add(1)
+console.log(m1.getMax());
 
 
-// 泛型类于new
+// 泛型于new
+// 构造函数的返回值类型是构造函数的实例类型
 function factory<T>(type: { new(): T }): T {
     return new type()
 }
 
+class Animal {
 
-// 泛型接口
-// 定义泛型，就相当于在这个接口中，多了一种可以使用的类型
-// 但是这种类型不确定，使用接口的时候才能确定，好像是函数的参数
-// 1. 泛型的定义在接口后边
-interface X1<T> {
-    (firstName: T, lastName: T): T
 }
-
-let x1: X1<string> = function (firstName: string, lastName: string): string {
-    return firstName + lastName
-}
-console.log(x1('zhufeng', 'peixun'));
-//2.泛型的定义在函数前边
-interface X2 {
-    <T>(a: T, b: T): T
-}
-let x2: X2 = function <T>(a: T, b: T): T {
-    return a
-}
-console.log(x2<number>(1, 2));
+let a1:Animal = factory<Animal>(Animal)
 
 
