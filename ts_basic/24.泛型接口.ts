@@ -9,12 +9,13 @@ let t1: Type<number> = function (a: number, b: number): number {
     return a + b;
 }
 //在接口内部属性中定义泛型
+// 泛型 +  泛型  怎么处理
 interface Type1 {
-    <T>(a: T, b: T): T
+    <T extends (string | number)>(a: T, b: T): T
 }
-let t2: Type1 = function <T>(a: T, b: T): T {
-    // return a + b;
-    return a;
+let t2: Type1 = function <T extends (string | number)>(a: T, b: T): any {
+    return a+b;
+    // return a;
 }
 
 
