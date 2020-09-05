@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/jquery": "^3.5.1",
+    "jquery": "^3.5.1"
+  }
 }
